@@ -1,6 +1,6 @@
 'use strict';
 let sectionEl = document.getElementById("cardSection");
-let formEl = document.getElementById("formID");
+let formEl = document.getElementById("formId");
 let allDrinks = [];
 let tableEl = document.getElementById("tableID");
 formEl.addEventListener("submit", handleSubmit);
@@ -63,6 +63,7 @@ Drink.prototype.render = function () {
         orderListEl.appendChild(list)
     }
 }
+
 Drink.prototype.renderTable = function () {
     let tr = document.createElement("tr");
     tableEl.appendChild(tr);
@@ -73,7 +74,7 @@ Drink.prototype.renderTable = function () {
 
     let priceTd = document.createElement("td");
     priceTd.textContent = this.price;
-    tr.appendChild(priceTD);
+    tr.appendChild(priceTd);
 }
 
 let latte = new Drink("Latte", ["milk", "ice", "sugar"], "./assets/latte.png", true, true, 1);
@@ -81,14 +82,11 @@ let mocha = new Drink("mocha", ["milk", "coffee", "ice", "sugar"], "./assets/moc
 let hotChocalte = new Drink("hot chocalte", ["milk", "coffee", "ice", "sugar"], "./assets/mocha.png", true, false, 2)
 
 function renderAll() {
-    for (let i = 0; i <= allDrinks.length; i++) {
+    for (let i = 0; i < allDrinks.length; i++) {
         allDrinks[i].render();
         allDrinks[i].renderTable();
     }
 }
-
-
-renderAll();
 
 // local storage:
 function saveData(data) {
@@ -99,12 +97,12 @@ function saveData(data) {
 
 
 function getData() {
-    let retrievedData = localStorage.getItem("drink");
+    let retrievedData = localStorage.getItem("drinks");
     
     let arrayData = JSON.parse(retrievedData);
     // each object doesn't has access to render method
     if (arrayData != null) {
-        for (let i = 1; i < arrayData.length; i++) {
+        for (let i = allDrinks.length; i < arrayData.length; i++) {
             // reinstantiation: re creating instance
             new Drink(arrayData[i].name, arrayData[i].ingredients, arrayData[i].image, arrayData[i].isCol, arrayData[i].isHot, arrayData[i].price);
         }
